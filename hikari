@@ -1,0 +1,20 @@
+<?php
+defined("ENV") or define("ENV", include_once('./env.php'));
+if (file_exists($themeEnvFilename = __DIR__ . "/Templates/". ENV['template'] . '/' ."_config.php")) {
+    $themeConfig = include_once($themeEnvFilename);
+    defined("THEME_CONFIG") or define("THEME_CONFIG", $themeConfig);
+} else {
+    die('Need theme env file: ' . $themeEnvFilename);
+}
+
+defined("ROOT_DIR") or define("ROOT_DIR", __DIR__);
+defined("LIB_DIR") or define("LIB_DIR", ROOT_DIR . '/Lib');
+defined("CMD_DIR") or define("CMD_DIR", LIB_DIR . '/Cmd');
+defined("DIST_DIR") or define("DIST_DIR", __DIR__ . '/Dist');
+defined("SOURCES_DIR") or define("SOURCES_DIR", __DIR__ . '/Sources');
+defined("POST_DIR") or define("POST_DIR", SOURCES_DIR . '/Posts');
+defined("PAGE_DIR") or define("PAGE_DIR", SOURCES_DIR . '/Pages');
+defined("THEME_BASE_DIR") or define("THEME_BASE_DIR", ROOT_DIR . "/Templates/" . ENV['template']);
+
+
+require_once "./Lib/main.php";

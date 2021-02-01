@@ -1,0 +1,78 @@
+<style>
+    body {
+        padding: 100px 100px;
+    }
+    .banner {
+        font-size: 100px;
+    }
+    #title {
+        font-size: 2em;
+        color: #333333;
+    }
+    #datetime {
+        font-size: 1.5em;
+        color: lightgray;
+    }
+    #content h1::before {
+        content: '# ';
+        color: #158BF1;
+    }
+    #content h2::before {
+        content: '## ';
+        color: #158BF1;
+    }
+    #content h3::before {
+        content: '### ';
+        color: #158BF1;
+    }
+    #content h4::before {
+        content: '### ';
+        color: #158BF1;
+    }
+    #content{
+        font-size: 15px;
+        color: rgb(77, 77, 77);
+    }
+    #content p {
+        line-height: 26px;
+    }
+    #content pre {
+        background-color: #000000;
+        padding: 10px 20px;
+    }
+    #content pre code {
+        color: #ffffff;
+    }
+    #content blockquote {
+        border-left: solid 10px lightgray;
+        background-color: #efeff5;
+        padding: 10px 20px;
+        padding-left: 15px;
+    }
+    #content a {
+        text-decoration: none;
+        margin: 0 3px;
+        color: #158BF1;
+    }
+    #content table {
+        margin: 20px 0;
+    }
+    #content table th, td{
+        border-bottom: solid 1px lightgray;
+        padding: 5px 10px;
+        text-align: left;
+        margin-right: 200px;
+    }
+    #content p code {
+        color: #FF696C;
+        background-color: #FFF0F0;
+        margin: 0 5px;
+        padding: 3px 10px;
+        border-radius: 3px;
+    }
+    #busuanzi_container_site_pv {
+        margin-left: 20px;
+        font-size: 0.7em;
+        color: lightgray;
+    }
+</style>

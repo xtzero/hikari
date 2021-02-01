@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>搜索</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            
+        }
+        .search-title {
+            margin-top: 200px;
+            font-size: 3em;
+        }
+        .search-input {
+            border-style: none;
+            border: solid 1px lightgray;
+            width: 50vw;
+            height: 60px;
+            margin-top: 20px;
+            padding: 0 0 0 50px;
+            font-size: 1.3em;
+            border-radius: 10px;
+        }
+        .search-result {
+            margin-top: 50px;
+            width: 50vw;
+        }
+        .search-result-item {
+            margin-bottom: 50px;
+        }
+        .search-result-item:hover {
+            color: blue;
+            cursor: pointer;
+        }
+        .result-item-title {
+            font-size: 1.3em;
+        }
+        .result-item-context {
+            font-size: .7em;
+            margin-top: 10px;
+        }
+        .result-item-path {
+            font-size: .7em;
+            color: gray;
+            margin-top: 10px;
+        }
+        .hilight-keyword {
+            color: red;
+        }
+    </style>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    {{navbar}}
+    <div class="container">
+        <div class="search-title">搜索</div>
+        <input type="text" class="search-input" id="search-input" placeholder="输入关键词...">
+        <div class="search-result" id="search-result">
+            输入关键词，回车搜索
+        </div>
+    </div>
+    <script>
+        var db = {}
+        $.getJSON('db.json', function(e) {
+            db = e
+        })
+        
+        function searchResultItemDom(obj, keyword) {
+            var dom = `
+            <div class="search-result-item result-action" link="${obj.path}">
+                <div class="result-item-title">${obj.title ? obj.title : ''}</div>
+                <div class="result-item-context">
+                    ${obj.context ? obj.context : ''}
+                </div>
+                <div class="result-item-path">
+                    ${obj.path ? obj.path : ''}
+                </div>
+            </div>
+            `
+
+            dom = dom.replace(new RegExp(`${keyword}`, 'g'), `<span class="hilight-keyword">${keyword}</span>`)
+
+            return dom
+        }
+        $('#search-input').on('keydown', function(e) {
+            if (e.key == 'Enter') {
+                var keyword = $('#search-input').val()
+                if (keyword != '') {
+                    $('#search-result').html("")
+                    if (Object.keys(db).length <= 0) {
+                        alert('请等待数据载入')
+                        return;
+                    }
+                    Object.keys(db).forEach(k => {
+                        var v = db[k]
+                        
+                        if (k.indexOf(keyword) > -1) {
+                            v.forEach(vv => {
+                                $('#search-result').html(
+                                    $('#search-result').html() + searchResultItemDom(vv, keyword)
+                                )
+                            })
+                        }
+                    })
+
+                    if ($('#search-result').html() == '') {
+                        $('#search-result').html('没有结果')
+                    } else {
+                        bindItemsAction()
+                    }
+                }
+            }
+        })
+        function bindItemsAction() {
+            var items = []
+            for (var i = 0; i < document.getElementsByClassName('result-action').length; i ++) {
+                items.push(document.getElementsByClassName('result-action')[i])
+            }
+
+            items.forEach(v => {
+                var link = $(v).attr('link')
+                $(v).on('click', function() {
+                    window.open(link)
+                })
+            })
+        }
+
+        bindItemsAction()
+    </script>
+</body>
+</html>

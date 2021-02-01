@@ -1,0 +1,21 @@
+{
+    "name": "xt/hikari",
+    "description": "hikari blog",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "xt",
+            "email": "t@xtzero.me"
+        }
+    ],
+    "require": {
+        "fukuball/jieba-php": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lib\\":".\\Lib",
+            "Cmd\\":".\\Lib\\Cmd",
+            "Templates\\":".\\Templates"
+        }
+    }
+}

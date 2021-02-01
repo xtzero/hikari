@@ -1,0 +1,62 @@
+<style>
+    body {
+        padding: 0;
+        padding-top: 0;
+    }
+    body > * {
+        margin: 0 100px 0 100px;
+    }
+    .navbar {
+        margin: 20px 0 50px 0;
+        display: flex;
+        flex-direction: row;
+        width: 100vw;
+    }
+    .navbar-left {
+        width: 20%;
+        margin-left: 50px;
+        display: flex;
+        flex-direction: row;
+    }
+    .navbar-left .title {
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .navbar-left .title:hover {
+        cursor: pointer;
+        color: #0451A5;
+    }
+    .navbar-right {
+        width: 80%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        margin-right: 50px;
+    }
+    .navbar-right-item {
+        margin-left: 40px;
+        width: auto;
+    }
+    .navbar-right-item:hover {
+        color: #0451A5;
+        cursor: pointer;
+    }
+</style>
+<div class="navbar">
+    <div class="navbar-left">
+        <div class="title navi-action" link="/">{{title}}</div>
+    </div>
+    <div class="navbar-right">
+        {{items}}
+    </div>
+</div>
+<script>
+    ((function() {
+        var menus = document.getElementsByClassName('navi-action')
+        for (var i = 0; i < menus.length; i ++) {
+            menus[i].addEventListener('click', function() {
+                window.location.href = this.getAttribute('link')
+            })
+        }
+    })())
+</script>

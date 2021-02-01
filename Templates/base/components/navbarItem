@@ -1,0 +1,1 @@
+<div class="navbar-right-item navi-action" link="{{url}}">{{title}}</div>

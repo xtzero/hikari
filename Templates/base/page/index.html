@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{title}}</title>
+        <style>
+            .container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                width: 200px;
+                height: 200px;
+            }
+            #title {
+                font-size: 55px;
+            }
+            #subtitle {
+                font-size: 30px;
+            }
+            #menus {
+                display: flex;
+                flex-direction: row;
+                margin-top: 50px;
+            }
+
+            .menu {
+                margin: 0 10px;
+                background-color: #50A8EC;
+                width: 160px;
+                height: 50px;
+                border-radius: 5px;
+                line-height: 50px;
+                text-align: center;
+                color: white;
+            }
+            .menu:hover {
+                background-color: #447DBC;
+                cursor: pointer;
+            }
+            /* .version {
+                background-color: #00BC00;
+                color: white;
+                font-size: 15px;
+                padding: 10px 20px;
+                border-radius: 5px;
+            } */
+        </style>
+    </head>
+    <body>
+        {{navbar}}
+        <div class="container">
+            <img class="logo" src="/hikarilogo.png"></img>
+            <h2 id="title">
+                {{title}}
+                <!-- <span class="version">beta 1</span> -->
+            </h2>
+            <h3 id="subtitle">{{subtitle}}</h3>
+            <div id="menus">
+                {{menu}}
+                <script>
+                ((function() {
+                    var menus = document.getElementsByClassName('menu-action')
+                    for (var i = 0; i < menus.length; i ++) {
+                        menus[i].addEventListener('click', function() {
+                            window.location.href = this.getAttribute('link')
+                        })
+                    }
+                })())
+                </script>
+            </div>        
+        </div>
+        {{footer}}
+    </body>
+</html>

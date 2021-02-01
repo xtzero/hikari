@@ -1,2 +1,5 @@
-# hikari
-一个简洁、高效、可定制的博客框架。
+# Hikari
+
+Hikari是一个博客框架。
+
+[Gitee](https://gitee.com/xtzero/hikari)
