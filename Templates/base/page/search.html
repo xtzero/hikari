@@ -9,7 +9,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            
+
         }
         .search-title {
             margin-top: 200px;
@@ -65,13 +65,17 @@
     </div>
     <script>
         var db = {}
+        $('#search-input').attr("disable", "disable")
+        $('#search-input').attr("placeholder", "请等待数据载入")
         $.getJSON('db.json', function(e) {
             db = e
+            $('#search-input').removeAttr("disable")
+            $('#search-input').attr("placeholder", "输入关键词...")
         })
-        
+
         function searchResultItemDom(obj, keyword) {
             var dom = `
-            <div class="search-result-item result-action" link="${obj.path}">
+            <div class="search-result-item result-action" link="{{link-here}}">
                 <div class="result-item-title">${obj.title ? obj.title : ''}</div>
                 <div class="result-item-context">
                     ${obj.context ? obj.context : ''}
@@ -82,7 +86,9 @@
             </div>
             `
 
-            dom = dom.replace(new RegExp(`${keyword}`, 'g'), `<span class="hilight-keyword">${keyword}</span>`)
+            dom = dom
+                .replace(new RegExp(`${keyword}`, 'g'), `<span class="hilight-keyword">${keyword}</span>`)
+                .replace(new RegExp('{{link-here}}', 'g'), obj.path)
 
             return dom
         }
@@ -97,7 +103,7 @@
                     }
                     Object.keys(db).forEach(k => {
                         var v = db[k]
-                        
+
                         if (k.indexOf(keyword) > -1) {
                             v.forEach(vv => {
                                 $('#search-result').html(
