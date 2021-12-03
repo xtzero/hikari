@@ -47,6 +47,25 @@
                 padding: 10px 20px;
                 border-radius: 5px;
             } */
+            .gitee_last_commit {
+                display: flex;
+                flex-direction: column;
+                width: 300px;
+                height: 100px;
+                color: #777;
+                /* border-top: 2px solid #f4645f; */
+                /* border-radius: 4px; */
+            }
+            .gitee_last_commit div {
+                margin-left: 20px;
+            }
+            .gitee_last_commit_title {
+                margin-top: 10px;
+                font-size: 17px;
+            }
+            .gitee_last_commit_content {
+                font-size: 13px;
+            }
         </style>
     </head>
     <body>
@@ -58,6 +77,10 @@
                 <!-- <span class="version">beta 1</span> -->
             </h2>
             <h3 id="subtitle">{{subtitle}}</h3>
+            <div class="gitee_last_commit">
+                <div class="gitee_last_commit_title">最近更新</div>
+                <div class="gitee_last_commit_content">{{gitee_last_commit}}</div>
+            </div>
             <div id="menus">
                 {{menu}}
                 <script>

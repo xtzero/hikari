@@ -24,9 +24,19 @@ class IndexTemplate implements BaseTemplate
             }, THEME_CONFIG['homepageMenu'])),
             'footer' => C(THEME_BASE_DIR . '/components/footer', [
                 "busuanzi" => C(THEME_BASE_DIR . '/components/busuanzi')
-            ])
+            ]),
+            'gitee_last_commit' => self::getGiteeCommitInfo()
         ]);
 
         file_put_contents(DIST_DIR . '/' . 'index.html', $html);
+    }
+
+    public static function getGiteeCommitInfo()
+    {
+        exec("cd " . ROOT_DIR . " && git log", $output, $res);
+        return implode(" ", [
+            str_replace(['Date:   ', ' +0800'], '', $output[2]),
+            $output[4] ?: '' ?? ''
+        ]);
     }
 }

@@ -1,0 +1,43 @@
+<style>
+    .pagnation_container {
+        display: flex;
+        flex-direction: row;
+        margin-top: 50px;
+    }
+    .pagination {
+        margin-right: 20px;
+        color: black;
+    }
+    .pagination-curr {
+        color: blue;
+    }
+</style>
+<div class="pagnation_container">
+    <a class="pagination pagnation_first"> << </a>
+    <a class="pagination pagnation_pre"> < </a>
+    {{children}}
+    <a class="pagination pagnation_next"> > </a>
+    <a class="pagination pagnation_last"> >> </a>
+</div>
+<script>
+    const hrefs = window.location.href.split('/')
+    const currPage = hrefs[hrefs.length - 1].replace('archives', '').replace('.html', '') - 0
+    const length = document.getElementsByClassName('pagination-num').length
+
+    document.getElementsByClassName('pagination-num')[currPage - 1].classList.add('pagination-curr')
+    document.getElementsByClassName('pagnation_first')[0].href = `/archives1.html`
+    document.getElementsByClassName('pagnation_last')[0].href = `/archives${document.getElementsByClassName('pagination-num').length}.html`
+    if (currPage == 1) {
+        document.getElementsByClassName('pagnation_pre')[0].style.display = "none"
+        document.getElementsByClassName('pagnation_first')[0].style.display = "none"
+    } else {
+        document.getElementsByClassName('pagnation_pre')[0].href = `/archives${currPage - 1}.html`
+    }
+    if (currPage == length) {
+        document.getElementsByClassName('pagnation_next')[0].style.display = "none"
+        document.getElementsByClassName('pagnation_last')[0].style.display = "none"
+    } else {
+        document.getElementsByClassName('pagnation_next')[0].href = `/archives${currPage + 1}.html`
+    }
+
+</script>

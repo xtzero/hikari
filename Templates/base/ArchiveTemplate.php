@@ -10,6 +10,31 @@ class ArchiveTemplate implements BaseTemplate
 {
     public static function render($data)
     {
+        $posts = self::getPosts();
+
+        if (!isset(THEME_CONFIG['post_per_page']) || THEME_CONFIG['post_per_page'] == -1) {
+            self::renderPosts($posts);
+            return ;
+        }
+
+        $renderArr = [];
+        $page = 1;
+        foreach ($posts as $k => $v) {
+            if (count($renderArr) < THEME_CONFIG['post_per_page']) {
+                $renderArr[] = $v;
+            }
+            $pageCount = intval(count($posts) / THEME_CONFIG['post_per_page']);
+            if (count($renderArr) == THEME_CONFIG['post_per_page']) {
+                self::renderPosts($renderArr, $pageCount, $page);
+                $page ++;
+                $renderArr = [];
+            }
+        }
+    }
+
+
+    public static function renderPosts($posts, $pageCount = 1, $page = 1)
+    {
         $html = C(THEME_BASE_DIR . '/page/archive.html', [
             'navbar' => C(THEME_BASE_DIR . '/components/navbar', [
                 "title" => ENV['title'],
@@ -19,12 +44,18 @@ class ArchiveTemplate implements BaseTemplate
             ]),
             "posts" => implode("\n", array_map(function($_post){
                 return C(THEME_BASE_DIR . '/components/postContent', $_post);
-            }, self::getPosts())),
+            }, $posts)),
+            "pagination" => $pageCount == 1 ? '' : C(THEME_BASE_DIR . '/components/pagnation_container', [
+                "children" => implode("\n", array_map(function($v) {
+                    return C(THEME_BASE_DIR . '/components/pagination', ["num" => $v]);
+                }, range(1, $pageCount))),
+                "length" => $pageCount
+            ]),
             'footer' => C(THEME_BASE_DIR . '/components/footer', [
                 "busuanzi" => C(THEME_BASE_DIR . '/components/busuanzi')
             ])
         ]);
-        $archivesFilePath = DIST_DIR . '/archives.html';
+        $archivesFilePath = DIST_DIR . "/archives{$page}.html";
         if (!file_exists($archivesFilePath)) {
             touch($archivesFilePath);
         }

@@ -16,5 +16,7 @@
     <div class="footer-statistic">
         {{busuanzi}}
     </div>
-    <div class="footer-police">*ICP备*号-*</div>
+    <div class="footer-police">
+        <a href="https://beian.miit.gov.cn/" target="_blank">辽ICP备16009524号-4</a>
+    </div>
 </div>
