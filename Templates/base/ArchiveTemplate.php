@@ -13,7 +13,7 @@ class ArchiveTemplate implements BaseTemplate
         $posts = self::getPosts();
 
         if (!isset(THEME_CONFIG['post_per_page']) || THEME_CONFIG['post_per_page'] == -1) {
-            self::renderPosts($posts);
+            self::renderPosts(array_reverse($posts));
             return ;
         }
 
